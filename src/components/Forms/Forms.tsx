@@ -15,7 +15,7 @@ export default function Form({ children, submitHandler, defaultValues }: FormPro
     if (!!defaultValues) FormConfig["defaultValues"] = defaultValues;
     const methods = useForm<FormProps>(FormConfig);
     const { handleSubmit, reset } = methods;
-    const onSubmit = (data: any) => { handleSubmit(data), reset(); };
+    const onSubmit = (data: any) => { submitHandler(data), reset(); };
     return (
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
