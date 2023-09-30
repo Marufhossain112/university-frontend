@@ -1,14 +1,26 @@
 "use client";
 import React from 'react';
 import { Layout } from 'antd';
+import UmBreadCrumb from './UmBreadCrumb';
 const { Content } = Layout;
 export default function Contents({ children }: { children: React.ReactNode; }) {
+    const base = "admin";
     return (
         <Content style={{
             minHeight: "100vh",
             color: "black"
         }}>
+            <UmBreadCrumb items={[
+                {
+                    label: `${base}`,
+                    link: `/${base}`
+                },
+                {
+                    label: "student",
+                    link: `/${base}/student`
+                },
+            ]} />
             {children}
         </Content>
     );
-}
+};;
