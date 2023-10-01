@@ -7,12 +7,13 @@ import FormInput from '@/components/Forms/FormInput';
 import Form from '@/components/Forms/Forms';
 import { SubmitHandler } from 'react-hook-form';
 import { useUserLoginMutation } from '../redux/api/authApi';
-import { storeUserInfo } from '@/services/auth.service';
+import { getUserInfo, storeUserInfo } from '@/services/auth.service';
 type FormValues = {
     id: string,
     password: string;
 };
 export default function LoginPage() {
+    console.log(getUserInfo());
     const [userLogin] = useUserLoginMutation();
     const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
         try {
