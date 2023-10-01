@@ -6,19 +6,22 @@ import Image from 'next/image';
 import FormInput from '@/components/Forms/FormInput';
 import Form from '@/components/Forms/Forms';
 import { SubmitHandler } from 'react-hook-form';
+import { useUserLoginMutation } from '../redux/api/authApi';
 type FormValues = {
     id: string,
     password: string;
 };
 export default function LoginPage() {
-    const onSubmit: SubmitHandler<FormValues> = (data: any) => {
+    const [userLogin] = useUserLoginMutation();
+    const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
         try {
-            console.log(data);
+            const res = await userLogin({ ...data }).unwrap();
+            console.log("data's", res);
         } catch (error) {
 
         }
-
     };
+
     return (
         <Row
             justify="center"
