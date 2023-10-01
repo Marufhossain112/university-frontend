@@ -8,7 +8,11 @@ export const getUserInfo = () => {
     const authUserToken = getFromLocalStorage("accessToken");
     if (authUserToken) {
         return decodedToken(authUserToken);
-    }else{
-        return ""
+    } else {
+        return "";
     }
+};
+export const isLoggedIn = () => {
+    const authUserToken = getFromLocalStorage("accessToken");
+    return !!authUserToken;
 };
