@@ -4,10 +4,13 @@ import React, { useState } from 'react';
 
 import { USER_ROLE } from '@/constants/role';
 import { sidebarItems } from '@/constants/sidebarItems';
+import { getUserInfo } from '@/services/auth.service';
 const { Sider } = Layout;
 export default function Sidebar() {
     const [collapsed, setCollapsed] = useState(false);
-    const role = USER_ROLE.ADMIN;
+    // const role = USER_ROLE.ADMIN;
+    const { role } = getUserInfo() as any;
+    console.log(role);
     return (
         <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
             width={280}

@@ -24,7 +24,7 @@ export default function LoginPage() {
             if (res?.accessToken) {
                 router.push("/profile");
             }
-            storeUserInfo({ accessToken: res?.data?.accessToken });
+            storeUserInfo({ accessToken: res?.accessToken });
         } catch (error: any) {
             console.log(error.message);
         }
