@@ -16,7 +16,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         }
         setLoading(true);
     }
-        , [router, isLoading]);
+        , [router, isLoading, userLoggedIn]);
     if (!isLoading) {
         return <p>Loading..................</p>;
     }
