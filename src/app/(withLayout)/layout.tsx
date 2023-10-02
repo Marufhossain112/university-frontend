@@ -2,7 +2,7 @@
 import Contents from '@/components/ui/Contents';
 import Sidebar from '@/components/ui/Sidebar';
 import { isLoggedIn } from '@/services/auth.service';
-import { Layout, Row, Spin } from 'antd';
+import { Layout, Row, Space, Spin } from 'antd';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
@@ -19,7 +19,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         , [router, isLoading, userLoggedIn]);
     if (!isLoading) {
         return <Row align={'middle'} justify={'center'} style={{ height: '100vh' }}>
-            <Spin size='large'></Spin>
+            <Space>
+                <Spin size='large'></Spin>
+            </Space>
         </Row>;
     }
     return (
