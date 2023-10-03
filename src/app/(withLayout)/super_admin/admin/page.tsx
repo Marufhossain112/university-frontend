@@ -1,4 +1,5 @@
 "use client";
+import ActionBar from '@/components/ui/ActionBar';
 import UmBreadCrumb from '@/components/ui/UmBreadCrumb';
 import { getUserInfo } from '@/services/auth.service';
 import { Button } from 'antd';
@@ -15,10 +16,11 @@ export default function ManageStudent() {
                     link: `/${role}`
                 },
             ]} />
-            <h1>Manage Admin Page</h1>
-            <Link href={"/super_admin/admin/create"}>
-                <Button>Create</Button>
-            </Link>
+            <ActionBar title='Manage Admin Page'>
+                <Link href={"/super_admin/admin/create"}>
+                    <Button>Create</Button>
+                </Link>
+            </ActionBar>
         </>
     );
 }

@@ -16,7 +16,7 @@ export default function ManageStudent() {
                 },
 
             ]} />
-            <h1>Manage User Page</h1>
+            <h1>Manage Super Admin Page</h1>
             <Link href={"/super_admin/user/create"}>
                 <Button>Create</Button>
             </Link>
