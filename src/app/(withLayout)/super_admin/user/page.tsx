@@ -1,7 +1,26 @@
+"use client";
+import UmBreadCrumb from '@/components/ui/UmBreadCrumb';
+import { getUserInfo } from '@/services/auth.service';
+import { Button } from 'antd';
+import Link from 'next/link';
 import React from 'react';
 
-export default function ManageUser() {
+export default function ManageStudent() {
+    const { role } = getUserInfo() as any;
     return (
-        <h1>Manage User Page</h1>
+        <>
+            <UmBreadCrumb items={[
+                {
+                    label: `${role}`,
+                    link: `/${role}`
+                },
+
+            ]} />
+            <h1>Manage User Page</h1>
+            <Link href={"/super_admin/user/create"}>
+                <Button>Create</Button>
+            </Link>
+        </>
     );
 }
+
