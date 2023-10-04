@@ -167,6 +167,7 @@ export default function CreateStudentPage() {
                                 span={8}
                                 style={{
                                     marginBottom: "10px",
+                                    width:"100%"
                                 }}
                             >
                                 <FormDatePicker name="admin.dateOfBirth" size='large' label='Date of Birth' />

@@ -5,7 +5,6 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 type FormConfig = {
     defaultValues?: Record<string, any>;
 };
-
 type FormProps = {
     children?: ReactElement | ReactNode;
     submitHandler: SubmitHandler<any>;
