@@ -1,3 +1,7 @@
+"use client";
+import GuardianInfo from '@/components/StudentInfo/GuardianInfo';
+import LocalGuardianInfo from '@/components/StudentInfo/LocalGuardianInfo';
+import StudentBasicInfo from '@/components/StudentInfo/StudentBasicInfo';
 import StudentInfo from '@/components/StudentInfo/StudentInfo';
 import StepperForm from '@/components/ui/StepperForm';
 import React from 'react';
@@ -10,19 +14,17 @@ export default function CreateStudentPage() {
         },
         {
             title: 'Basic information',
-            content: <StudentInfo />,
+            content: <StudentBasicInfo />,
         },
         {
             title: 'Guardian information',
-            content: <StudentInfo />,
+            content: <GuardianInfo />,
         },
         {
             title: 'Local Guardian information',
-            content: <StudentInfo />,
+            content: <LocalGuardianInfo />,
         },
-
     ];
-
     return (
         <>
             <h1>Create Student</h1>
