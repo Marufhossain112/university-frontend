@@ -12,8 +12,13 @@ export default function Contents({ children }: { children: React.ReactNode; }) {
             color: "black"
         }}>
             <Header></Header>
-
-            {children}
+            <div
+                style={{
+                    padding: "10px",
+                }}
+            >
+                {children}
+            </div>
         </Content>
     );
 };;
