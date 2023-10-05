@@ -25,10 +25,17 @@ export default function CreateStudentPage() {
             content: <LocalGuardianInfo />,
         },
     ];
+    const handleSubmitHandler = async (data: any) => {
+        try {
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <>
             <h1>Create Student</h1>
-            <StepperForm steps={steps} />
+            <StepperForm submitHandler={(value) => handleSubmitHandler(value)} steps={steps} />
         </>
     );
 }
