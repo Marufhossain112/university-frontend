@@ -7,7 +7,9 @@ import Form from '@/components/Forms/Forms';
 import UmBreadCrumb from '@/components/ui/UmBreadCrumb';
 import UploadImage from '@/components/ui/Upload';
 import { bloodGroupOptions, departmentOptions, genderOptions } from '@/constants/global';
+import { adminSchema } from '@/schemas/adminSchema';
 import { getUserInfo } from '@/services/auth.service';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Col, Row } from 'antd';
 import React from 'react';
 export default function CreateStudentPage() {
@@ -15,6 +17,7 @@ export default function CreateStudentPage() {
     const onsubmit = (data: any) => {
         console.log(data);
     };
+
     return (
         <>
             <UmBreadCrumb
@@ -31,7 +34,7 @@ export default function CreateStudentPage() {
             />
             <h1>Create Admin </h1>
             <div>
-                <Form submitHandler={onsubmit}>
+                <Form submitHandler={onsubmit} resolver={yupResolver(adminSchema)}>
                     {/* admin Information */}
                     <div
                         style={{
@@ -167,7 +170,7 @@ export default function CreateStudentPage() {
                                 span={8}
                                 style={{
                                     marginBottom: "10px",
-                                    width:"100%"
+                                    width: "100%"
                                 }}
                             >
                                 <FormDatePicker name="admin.dateOfBirth" size='large' label='Date of Birth' />
