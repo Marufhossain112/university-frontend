@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, message } from 'antd';
 import loginImage from "../../assets/Login-bro.svg";
 import Image from 'next/image';
 import FormInput from '@/components/Forms/FormInput';
@@ -15,14 +15,13 @@ type FormValues = {
 };
 export default function LoginPage() {
     const router = useRouter();
-    // console.log(getUserInfo());
     const [userLogin] = useUserLoginMutation();
-    // console.log(isLoggedIn());
     const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
         try {
             const res = await userLogin({ ...data }).unwrap();
             if (res?.accessToken) {
                 router.push("/profile");
+                message.success("User logged in successfully")
             }
             storeUserInfo({ accessToken: res?.accessToken });
         } catch (error: any) {
