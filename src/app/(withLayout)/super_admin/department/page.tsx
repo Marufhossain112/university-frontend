@@ -1,4 +1,5 @@
 "use client";
+import UMTable from '@/components/ui/UMTable';
 import UmBreadCrumb from '@/components/ui/UmBreadCrumb';
 import { getUserInfo } from '@/services/auth.service';
 import { Button } from 'antd';
@@ -20,6 +21,7 @@ export default function ManageStudent() {
             <Link href={"/super_admin/department/create"}>
                 <Button>Create</Button>
             </Link>
+            <UMTable></UMTable>
         </>
     );
 }
