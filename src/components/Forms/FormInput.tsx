@@ -1,7 +1,6 @@
 "use client";
 import { getErrorByPropertyName } from "@/utils/schema-validator";
 import { Input } from "antd";
-import { error } from "console";
 import { useFormContext, Controller } from "react-hook-form";
 interface IInput {
     name: string;
@@ -56,5 +55,4 @@ const FormInput = ({
         </>
     );
 };
-
 export default FormInput;
