@@ -9,6 +9,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { DeleteOutlined, EyeOutlined, EditOutlined, ReloadOutlined } from '@ant-design/icons';
 import ActionBar from '@/components/ui/ActionBar';
+import { useDebounced } from '@/app/redux/hooks';
 export default function ManageDepartment() {
     const query: Record<string, any> = {};
     const [size, setSize] = useState<number>(10);
@@ -20,7 +21,16 @@ export default function ManageDepartment() {
     query["page"] = page;
     query["sortBy"] = sortBy;
     query["sortOrder"] = sortOrder;
-    query["searchTerm"] = searchTerm;
+    // query["searchTerm"] = searchTerm;
+
+    const debouncedTerm = useDebounced({
+        searchQuery: searchTerm,
+        delay: 600
+    });
+
+    if (!!debouncedTerm) {
+        query["searchTerm"] = debouncedTerm;
+    }
     const { data, isLoading } = useDepartmentsQuery({ ...query });
     const departments = data?.departments;
     const meta = data?.meta;
@@ -108,4 +118,3 @@ export default function ManageDepartment() {
         </>
     );
 }
-
