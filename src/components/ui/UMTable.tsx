@@ -1,59 +1,26 @@
 "use client";
-import { Button, Table } from 'antd';
+import { Table } from 'antd';
 import React from 'react';
-export default function UMTable() {
-    const columns = [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-        },
-        {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
-            sorter: (a: any, b: any) => a.age - b.age,
-        },
-        {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'Action',
-            render: function (data: any) {
-                return <Button onClick={() => console.log(data)} type='primary' danger>X</Button>;
-            }
-        },
-    ];
-    const dataSource = [
-        {
-            key: '1',
-            name: 'Mike',
-            age: 32,
-            address: '10 Downing Street',
-        },
-        {
-            key: '2',
-            name: 'John',
-            age: 42,
-            address: '10 Downing Street',
-        },
-    ];
-    const onPaginationChange = (page: number, pageSize: number) => {
-        console.log("page", page, "pageSize", pageSize);
-    };
-    const paginationConfig = {
-        pageSize: 5,
-        total: 10,
+type IUMTableProps = {
+    loading?: boolean;
+    columns: any,
+    dataSource: any, pageSize?: number;
+    totalPage?: number;
+    showSizeChanger?: boolean;
+    onChange?: (page: number, pageSize: number) => void;
+    onTableChange?: (pagination: any, filter: any, sorter: any) => void;
+    onPaginationChange?: (page: number, pageSize: number) => void;
+    showPagination?: boolean;
+};
+
+export default function UMTable({ columns, loading = false, dataSource, pageSize, totalPage, showSizeChanger = true, onTableChange, onPaginationChange, showPagination = true }: IUMTableProps) {
+    const paginationConfig = showPagination ? {
+        pageSize: pageSize,
+        total: totalPage,
         pageSizeOptions: [5, 10, 15, 20],
-        showSizeChanger: true,
+        showSizeChanger: showSizeChanger,
         onChange: onPaginationChange
-    };
-    const onTableChange = (pagination: any, filter: any, sorter: any) => {
-        const { order, field } = sorter;
-        console.log(order, field);
-    };
+    } : false;
     return (
         <Table loading={false} dataSource={dataSource} columns={columns} pagination={paginationConfig} onChange={onTableChange} />
     );
