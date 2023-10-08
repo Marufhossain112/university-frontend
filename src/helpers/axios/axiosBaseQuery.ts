@@ -20,7 +20,7 @@ export const axiosBaseQuery =
         async ({ url, method, data, params, contentType }) => {
             try {
                 const result = await axiosInstance({ url: baseUrl + url, method, data, params, headers: { contentType: contentType } });
-                return { data: result.data };
+                return result;
             } catch (axiosError) {
                 let err = axiosError as AxiosError;
                 return {

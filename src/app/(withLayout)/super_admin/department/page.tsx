@@ -1,12 +1,21 @@
 "use client";
+import { useDepartmentsQuery } from '@/app/redux/api/departmentApi';
 import UMTable from '@/components/ui/UMTable';
 import UmBreadCrumb from '@/components/ui/UmBreadCrumb';
 import { getUserInfo } from '@/services/auth.service';
 import { Button } from 'antd';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function ManageDepartment() {
+    const query: Record<string, any> = {};
+    const [size, setSize] = useState<number>(10);
+    const [page, setPage] = useState<number>(1);
+    query["limit"] = size;
+    query["page"] = page;
+    const { data, isLoading } = useDepartmentsQuery({ ...query });
+    // const { departments, meta } = data;
+
     const { role } = getUserInfo() as any;
     const columns = [
         {
