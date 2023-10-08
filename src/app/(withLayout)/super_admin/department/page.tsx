@@ -1,10 +1,10 @@
 "use client";
 import dayjs from 'dayjs';
-import { useDepartmentsQuery } from '@/app/redux/api/departmentApi';
+import { useDeleteDepartmentMutation, useDepartmentsQuery } from '@/app/redux/api/departmentApi';
 import UMTable from '@/components/ui/UMTable';
 import UmBreadCrumb from '@/components/ui/UmBreadCrumb';
 import { getUserInfo } from '@/services/auth.service';
-import { Button, Input } from 'antd';
+import { Button, Input, message } from 'antd';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { DeleteOutlined, EyeOutlined, EditOutlined, ReloadOutlined } from '@ant-design/icons';
@@ -22,7 +22,17 @@ export default function ManageDepartment() {
     query["sortBy"] = sortBy;
     query["sortOrder"] = sortOrder;
     // query["searchTerm"] = searchTerm;
-
+    const [deleteDepartment] = useDeleteDepartmentMutation();
+    const deleteHandler = async (id: string) => {
+        message.loading("Deleting...");
+        try {
+            await deleteDepartment(id);
+            message.success("Department deleted successfully.");
+        } catch (err: any) {
+            console.error(err.message);
+            message.error(err.message);
+        }
+    };
     const debouncedTerm = useDebounced({
         searchQuery: searchTerm,
         delay: 600
@@ -55,7 +65,7 @@ export default function ManageDepartment() {
                     <Link href={`/super_admin/department/edit/${data?.id}`}>
                         <Button style={{ margin: "0 5px" }} onClick={() => console.log(data)} type='primary' ><EditOutlined /></Button>
                     </Link>
-                    <Button onClick={() => console.log(data)} type='primary' danger><DeleteOutlined /></Button>
+                    <Button onClick={() => deleteHandler(data?.id)} type='primary' danger><DeleteOutlined /></Button>
                 </>;
             }
         },

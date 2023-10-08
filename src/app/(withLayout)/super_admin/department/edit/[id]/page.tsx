@@ -1,5 +1,5 @@
 "use client";
-import { useDepartmentQuery } from '@/app/redux/api/departmentApi';
+import { useDepartmentQuery, useUpdateDepartmentMutation } from '@/app/redux/api/departmentApi';
 import FormInput from '@/components/Forms/FormInput';
 import Form from '@/components/Forms/Forms';
 import ActionBar from '@/components/ui/ActionBar';
@@ -10,10 +10,11 @@ type IDProps = {
     params: any;
 };
 export default function EditDepartmentPage({ params }: IDProps) {
-    const onSubmit = async (data: any) => {
+    const [updateDepartment] = useUpdateDepartmentMutation();
+    const onSubmit = async (data: { title: string; }) => {
         message.loading("Updating...");
         try {
-            console.log(data);
+            await updateDepartment({ id, body: data });
             message.success("Department updated successfully.");
         } catch (err: any) {
             console.error(err.message);
@@ -25,7 +26,7 @@ export default function EditDepartmentPage({ params }: IDProps) {
     const { data, isLoading } = useDepartmentQuery(id);
     // console.log(data);
     const defaultValues = { title: data?.title || "" };
-    
+
     return (
         <div>
             <UmBreadCrumb items={[
