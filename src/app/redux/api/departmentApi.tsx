@@ -18,7 +18,6 @@ export const departmentApi = baseApi.injectEndpoints({
             },
             providesTags: [tagTypes.department]
         }),
-
         addDepartment: build.mutation({
             query: (data) => ({
                 url: DEPARTMENT_URL,

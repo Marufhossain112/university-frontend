@@ -1,43 +1,51 @@
 "use client";
+import dayjs from 'dayjs';
 import { useDepartmentsQuery } from '@/app/redux/api/departmentApi';
 import UMTable from '@/components/ui/UMTable';
 import UmBreadCrumb from '@/components/ui/UmBreadCrumb';
 import { getUserInfo } from '@/services/auth.service';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import Link from 'next/link';
 import React, { useState } from 'react';
-
+import { DeleteOutlined, EyeOutlined, EditOutlined, ReloadOutlined } from '@ant-design/icons';
+import ActionBar from '@/components/ui/ActionBar';
 export default function ManageDepartment() {
     const query: Record<string, any> = {};
     const [size, setSize] = useState<number>(10);
     const [page, setPage] = useState<number>(1);
+    const [sortBy, setSortBy] = useState<string>("");
+    const [sortOrder, setSortOrder] = useState<string>("");
+    const [searchTerm, setSearchTerm] = useState<string>("");
     query["limit"] = size;
     query["page"] = page;
+    query["sortBy"] = sortBy;
+    query["sortOrder"] = sortOrder;
+    query["searchTerm"] = searchTerm;
     const { data, isLoading } = useDepartmentsQuery({ ...query });
-    // const { departments, meta } = data;
-
+    const departments = data?.departments;
+    const meta = data?.meta;
     const { role } = getUserInfo() as any;
     const columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
+            title: 'Title',
+            dataIndex: 'title',
         },
         {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
-            sorter: (a: any, b: any) => a.age - b.age,
-        },
-        {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
+            title: 'CreatedAt',
+            dataIndex: 'createdAt',
+            render: function (data: any) {
+                return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+            },
+            sorter: true
         },
         {
             title: 'Action',
             render: function (data: any) {
-                return <Button onClick={() => console.log(data)} type='primary' danger>X</Button>;
+                return <>
+                    <Button onClick={() => console.log(data)} type='primary' ><EyeOutlined /></Button>
+                    <Button style={{ margin: "0 5px" }} onClick={() => console.log(data)} type='primary' ><EditOutlined /></Button>
+                    <Button onClick={() => console.log(data)} type='primary' danger><DeleteOutlined /></Button>
+                </>;
             }
         },
     ];
@@ -55,12 +63,19 @@ export default function ManageDepartment() {
             address: '10 Downing Street',
         },
     ];
+    const resetFilters = () => {
+        setSortBy("");
+        setSortOrder("");
+        setSearchTerm("");
+    };
     const onPaginationChange = (page: number, pageSize: number) => {
-        console.log("page", page, "pageSize", pageSize);
+        setPage(page);
+        setPage(pageSize);
     };
     const onTableChange = (pagination: any, filter: any, sorter: any) => {
         const { order, field } = sorter;
-        console.log(order, field);
+        setSortBy(field);
+        setSortOrder(order === "ascend" ? "asc" : "desc");
     };
     return (
         <>
@@ -70,12 +85,24 @@ export default function ManageDepartment() {
                     link: `/${role}`
                 },
             ]} />
-            <h1>Manage Department Page</h1>
-            <Link href={"/super_admin/department/create"}>
-                <Button>Create</Button>
-            </Link>
-            <UMTable loading={false} columns={columns} dataSource={dataSource} pageSize={15}
-                totalPage={100}
+            <h1></h1>
+            <ActionBar title='Manage Department List'>
+                <Input onChange={(e) => setSearchTerm(e.target.value)} type='text' size='large' placeholder='Search...' style={{ width: "20%" }} />
+                <div>
+                    <Link href={"/super_admin/department/create"}>
+                        <Button type='primary'>Create</Button>
+                    </Link>
+                    {
+                        (!!sortBy || !!sortOrder || !!searchTerm) && (
+                            <Button onClick={resetFilters} type='primary' style={{ margin: "0px 5px" }}>
+                                <ReloadOutlined />
+                            </Button>
+                        )
+                    }
+                </div>
+            </ActionBar>
+            <UMTable loading={false} columns={columns} dataSource={departments} pageSize={size}
+                totalPage={meta?.total}
                 showSizeChanger={true}
                 onChange={onPaginationChange} onTableChange={onTableChange}></UMTable >
         </>
