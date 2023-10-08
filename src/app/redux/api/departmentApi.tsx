@@ -26,6 +26,14 @@ export const departmentApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [tagTypes.department]
         }),
+        // get single department by id
+        department: build.query({
+            query: (id) => ({
+                url: `${DEPARTMENT_URL}/${id}`,
+                method: "GET",
+            }),
+            providesTags: [tagTypes.department],
+        }),
     }),
 });
-export const { useDepartmentsQuery, useAddDepartmentMutation } = departmentApi;
+export const { useDepartmentsQuery, useAddDepartmentMutation, useDepartmentQuery, } = departmentApi;

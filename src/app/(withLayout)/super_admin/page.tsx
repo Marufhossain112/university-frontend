@@ -14,7 +14,6 @@ export default function ManageStudent() {
                     label: `${role}`,
                     link: `/${role}`
                 },
-
             ]} />
             <h1>Manage Super Admin Page</h1>
             <Link href={"/super_admin/user/create"}>

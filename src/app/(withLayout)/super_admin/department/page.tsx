@@ -52,8 +52,9 @@ export default function ManageDepartment() {
             title: 'Action',
             render: function (data: any) {
                 return <>
-                    <Button onClick={() => console.log(data)} type='primary' ><EyeOutlined /></Button>
-                    <Button style={{ margin: "0 5px" }} onClick={() => console.log(data)} type='primary' ><EditOutlined /></Button>
+                    <Link href={`/super_admin/department/edit/${data?.id}`}>
+                        <Button style={{ margin: "0 5px" }} onClick={() => console.log(data)} type='primary' ><EditOutlined /></Button>
+                    </Link>
                     <Button onClick={() => console.log(data)} type='primary' danger><DeleteOutlined /></Button>
                 </>;
             }
