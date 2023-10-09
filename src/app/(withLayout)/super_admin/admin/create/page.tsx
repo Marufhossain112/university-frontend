@@ -14,12 +14,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Col, Row, message } from 'antd';
 import React from 'react';
 export default function CreateAdminPage() {
-    const { data, isLoading } = useDepartmentsQuery({ limit: 100, page: 1 });
+    const { data } = useDepartmentsQuery({ limit: 100, page: 1 });
     const [addAdminWithFormData] = useAddAdminWithFormDataMutation();
     const onSubmit = async (values: any) => {
         console.log("Values", values);
         const obj = { ...values };
         const file = obj["file"];
+        // console.log("file", file);
         delete obj["file"];
         const data = JSON.stringify(obj);
         const formData = new FormData();
