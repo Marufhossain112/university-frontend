@@ -1,4 +1,5 @@
 "use client";
+import { useAddAdminWithFormDataMutation } from '@/app/redux/api/adminApi';
 import { useDepartmentsQuery } from '@/app/redux/api/departmentApi';
 import FormDatePicker from '@/components/Forms/FormDatePicker';
 import FormInput from '@/components/Forms/FormInput';
@@ -9,17 +10,30 @@ import UmBreadCrumb from '@/components/ui/UmBreadCrumb';
 import UploadImage from '@/components/ui/Upload';
 import { bloodGroupOptions, genderOptions } from '@/constants/global';
 import { adminSchema } from '@/schemas/adminSchema';
-import { getUserInfo } from '@/services/auth.service';
-import { IDepartments } from '@/types';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, message } from 'antd';
 import React from 'react';
 export default function CreateAdminPage() {
-    const { role } = getUserInfo() as any;
-    const onsubmit = (data: any) => {
-        console.log(data);
-    };
     const { data, isLoading } = useDepartmentsQuery({ limit: 100, page: 1 });
+    const [addAdminWithFormData] = useAddAdminWithFormDataMutation();
+    const onSubmit = async (values: any) => {
+        console.log("Values", values);
+        const obj = { ...values };
+        const file = obj["file"];
+        delete obj["file"];
+        const data = JSON.stringify(obj);
+        const formData = new FormData();
+        formData.append("file", file as Blob);
+        formData.append("data", data);
+        message.loading("Creating...");
+        try {
+            await addAdminWithFormData(formData);
+            message.success("Admin created successfully!");
+        } catch (err) {
+            console.error("Error creating admin:", err);
+            message.error("Failed to create admin");
+        }
+    };
     //@ts-ignore
     const departments: IDepartments[] = data?.departments;
     // console.log("departments", departments);
@@ -48,7 +62,7 @@ export default function CreateAdminPage() {
             />
             <h1>Create Admin </h1>
             <div>
-                <Form submitHandler={onsubmit} resolver={yupResolver(adminSchema)}>
+                <Form submitHandler={onSubmit} resolver={yupResolver(adminSchema)}>
                     {/* admin Information */}
                     <div
                         style={{
@@ -219,7 +233,6 @@ export default function CreateAdminPage() {
                             </Col>
                         </Row>
                     </div>
-
                     <Button htmlType='submit' type="primary">Create</Button>
                 </Form>
             </div>
