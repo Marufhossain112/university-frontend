@@ -1,4 +1,5 @@
 "use client";
+import { useDepartmentsQuery } from '@/app/redux/api/departmentApi';
 import FormDatePicker from '@/components/Forms/FormDatePicker';
 import FormInput from '@/components/Forms/FormInput';
 import FormSelectField from '@/components/Forms/FormSelect';
@@ -6,17 +7,30 @@ import FormTextArea from '@/components/Forms/FormTextArea';
 import Form from '@/components/Forms/Forms';
 import UmBreadCrumb from '@/components/ui/UmBreadCrumb';
 import UploadImage from '@/components/ui/Upload';
-import { bloodGroupOptions, departmentOptions, genderOptions } from '@/constants/global';
+import { bloodGroupOptions, genderOptions } from '@/constants/global';
 import { adminSchema } from '@/schemas/adminSchema';
 import { getUserInfo } from '@/services/auth.service';
+import { IDepartments } from '@/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Col, Row } from 'antd';
 import React from 'react';
-export default function CreateStudentPage() {
+export default function CreateAdminPage() {
     const { role } = getUserInfo() as any;
     const onsubmit = (data: any) => {
         console.log(data);
     };
+    const { data, isLoading } = useDepartmentsQuery({ limit: 100, page: 1 });
+    //@ts-ignore
+    const departments: IDepartments[] = data?.departments;
+    // console.log("departments", departments);
+    const departmentOptions =
+        departments &&
+        departments?.map((department) => {
+            return {
+                label: department?.title,
+                value: department?.id,
+            };
+        });
 
     return (
         <>
@@ -86,7 +100,7 @@ export default function CreateStudentPage() {
                             <Col className="gutter-row" style={{
                                 marginBottom: "10px",
                             }} span={8}>
-                                <UploadImage></UploadImage>
+                                <UploadImage name="file"></UploadImage>
                             </Col>
                         </Row>
                     </div>
