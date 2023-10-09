@@ -1,28 +1,23 @@
-"use client";
-import UmBreadCrumb from '@/components/ui/UmBreadCrumb';
-import { getUserInfo } from '@/services/auth.service';
-import { Button } from 'antd';
-import Link from 'next/link';
-import React from 'react';
+import UmBreadCrumb from "@/components/ui/UmBreadCrumb";
+import { Button } from "antd";
+import Link from "next/link";
 
-export default function ManageStudent() {
-    const { role } = getUserInfo() as any;
+const ManageFacultyPage = () => {
     return (
-        <>
-            <UmBreadCrumb items={[
-                {
-                    label: `${role}`,
-                    link: `/${role}`
-                },
-
-            ]} />
-            <h1>Manage Faculty Page</h1>
-            <Link href={"/super_admin/manage-faculty/create"}>
-                <Button>Create</Button>
+        <div>
+            <UmBreadCrumb
+                items={[
+                    {
+                        label: "super_admin",
+                        link: "/super_admin",
+                    },
+                ]}
+            />
+            <h1>Faculty List</h1>
+            <Link href="/super_admin/manage-faculty/create">
+                <Button type="primary">Create</Button>
             </Link>
-        </>
+        </div>
     );
-}
-
-
-
+};
+export default ManageFacultyPage;

@@ -2,7 +2,6 @@
 import { Layout, Menu, MenuProps } from 'antd';
 import React, { useState } from 'react';
 
-import { USER_ROLE } from '@/constants/role';
 import { sidebarItems } from '@/constants/sidebarItems';
 import { getUserInfo } from '@/services/auth.service';
 const { Sider } = Layout;
@@ -30,7 +29,7 @@ export default function Sidebar() {
                 textAlign: 'center',
                 fontWeight: 'bold',
                 marginBottom: '1rem'
-            }}>PH-University</div>
+            }}>UMS</div>
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={sidebarItems(role)} />
         </Sider>
     );
