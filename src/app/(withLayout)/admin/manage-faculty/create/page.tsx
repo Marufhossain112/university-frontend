@@ -31,7 +31,6 @@ const CreateFacultyPage = () => {
             console.error(err.message);
         }
     };
-
     const base = "admin";
     return (
         <>
