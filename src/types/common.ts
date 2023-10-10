@@ -126,3 +126,31 @@ export interface IStudent {
     createdAt: string;
     updatedAt: string;
 }
+export interface IBuilding {
+    id: string;
+    title: string;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt?: null;
+}
+export interface IRoom {
+    id: string;
+    roomNumber: string;
+    floor: string;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt?: null;
+    buildingId: string;
+    building: IBuilding;
+}
+export interface ICourse {
+    id: string;
+    title: string;
+    code: string;
+    credits: number;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt?: null;
+    prerequisites?: null[] | null;
+    prerequisiteFor?: null[] | null;
+}
