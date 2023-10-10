@@ -1,5 +1,5 @@
 import { useAcademicSemestersQuery } from "@/app/redux/api/academic/semesterApi";
-import FormSelectField, { SelectOptions } from "./FormSelect";
+import FormSelectField, { SelectOptions } from "./FormSelectField";
 
 
 type ACFacultyFieldProps = {

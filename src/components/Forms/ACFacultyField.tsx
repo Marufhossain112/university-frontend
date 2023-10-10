@@ -1,5 +1,5 @@
 import React from 'react';
-import FormSelectField from './FormSelect';
+import FormSelectField from './FormSelectField';
 import { useAcademicFacultiesQuery } from '@/app/redux/api/academic/facultyApi';
 type ACFacultyFieldProps = {
     name: string;

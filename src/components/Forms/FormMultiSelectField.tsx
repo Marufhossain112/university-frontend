@@ -5,7 +5,7 @@ export type SelectOptions = {
     label: string;
     value: string;
 };
-type FormSelectField = {
+type SelectFieldProps = {
     options: SelectOptions[];
     name: string;
     size?: "large" | "small";
@@ -13,18 +13,16 @@ type FormSelectField = {
     placeholder?: string;
     label?: string;
     defaultValue?: SelectOptions;
+    mode?: string;
 };
-const FormSelectField = ({
+const FormMultiSelectField = ({
     name,
     size,
-    value,
     placeholder,
     label,
-    options,
-    defaultValue
-}: FormSelectField) => {
+    options
+}: SelectFieldProps) => {
     const { control } = useFormContext();
-
     return (
         <>
             {label ? label : null}
@@ -39,11 +37,12 @@ const FormSelectField = ({
                         value={value}
                         style={{ width: "100%" }}
                         placeholder={placeholder}
+                        mode='multiple'
+                        allowClear
                     />
                 }
             />
         </>
     );
 };
-
-export default FormSelectField;
+export default FormMultiSelectField;

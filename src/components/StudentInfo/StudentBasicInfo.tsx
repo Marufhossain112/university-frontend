@@ -4,7 +4,7 @@ import FormInput from "../Forms/FormInput";
 import FormDatePicker from "../Forms/FormDatePicker";
 import FormTextArea from "../Forms/FormTextArea";
 import { bloodGroupOptions } from "@/constants/global";
-import FormSelectField from "../Forms/FormSelect";
+import FormSelectField from "../Forms/FormSelectField";
 
 const StudentBasicInfo = () => {
     return (

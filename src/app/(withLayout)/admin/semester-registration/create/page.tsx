@@ -1,8 +1,6 @@
 "use client";
-
 import { useAddSemesterRegistrationsMutation } from "@/app/redux/api/semesterRegistrationApi";
 import ACSemesterField from "@/components/Forms/ACSemesterField";
-
 import FormDatePicker from "@/components/Forms/FormDatePicker";
 import FormInput from "@/components/Forms/FormInput";
 import Form from "@/components/Forms/Forms";

@@ -10,7 +10,7 @@ import {
 import ACDepartmentField from "../Forms/ACDepartmentField";
 import ACFacultyField from "../Forms/ACFacultyField";
 import ACSemesterField from "../Forms/ACSemesterField";
-import FormSelectField from "../Forms/FormSelect";
+import FormSelectField from "../Forms/FormSelectField";
 import UploadImage from "../ui/Upload";
 
 const StudentInfo = () => {

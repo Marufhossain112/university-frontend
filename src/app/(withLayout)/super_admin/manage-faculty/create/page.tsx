@@ -1,7 +1,7 @@
 "use client";
 import FormDatePicker from "@/components/Forms/FormDatePicker";
 import FormInput from "@/components/Forms/FormInput";
-import FormSelectField from "@/components/Forms/FormSelect";
+import FormSelectField from "@/components/Forms/FormSelectField";
 import FormTextArea from "@/components/Forms/FormTextArea";
 import Form from "@/components/Forms/Forms";
 import UmBreadCrumb from "@/components/ui/UmBreadCrumb";

@@ -2,7 +2,7 @@
 import { useAddAcademicDepartmentMutation } from "@/app/redux/api/academic/departmentApi";
 import { useAcademicFacultiesQuery } from "@/app/redux/api/academic/facultyApi";
 import FormInput from "@/components/Forms/FormInput";
-import FormSelectField from "@/components/Forms/FormSelect";
+import FormSelectField from "@/components/Forms/FormSelectField";
 import Form from "@/components/Forms/Forms";
 import UmBreadCrumb from "@/components/ui/UmBreadCrumb";
 import { Button, Col, Row, message } from "antd";

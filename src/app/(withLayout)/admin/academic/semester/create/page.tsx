@@ -1,6 +1,6 @@
 "use client";
 import { useAddAcademicSemesterMutation } from "@/app/redux/api/academic/semesterApi";
-import FormSelectField from "@/components/Forms/FormSelect";
+import FormSelectField from "@/components/Forms/FormSelectField";
 import FormYearPicker from "@/components/Forms/FormYearPicker";
 import Form from "@/components/Forms/Forms";
 import UmBreadCrumb from "@/components/ui/UmBreadCrumb";

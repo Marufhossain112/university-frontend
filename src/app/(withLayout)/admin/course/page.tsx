@@ -35,7 +35,6 @@ const CoursePage = () => {
         query["searchTerm"] = debouncedTerm;
     }
     const { data, isLoading } = useCoursesQuery({ ...query });
-
     const courses = data?.courses;
     const meta = data?.meta;
 

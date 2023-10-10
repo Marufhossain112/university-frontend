@@ -2,37 +2,32 @@
 
 import { useAddCourseMutation, useCoursesQuery } from "@/app/redux/api/courseApi";
 import FormInput from "@/components/Forms/FormInput";
+import FormMultiSelectField from "@/components/Forms/FormMultiSelectField";
+import { SelectOptions } from "@/components/Forms/FormSelectField";
 import Form from "@/components/Forms/Forms";
 import UmBreadCrumb from "@/components/ui/UmBreadCrumb";
-
 import { Button, Col, Row, message } from "antd";
-
 const CreateCoursePage = () => {
   const [addCourse] = useAddCourseMutation();
-
   const { data, isLoading } = useCoursesQuery({ limit: 10, page: 1 });
-
   const courses = data?.courses;
-  const coursesOptions = courses?.map((course) => {
+  // const meta = data?.meta;
+  const coursesOptions = courses?.map(course => {
     return {
       label: course?.title,
-      value: course?.id,
+      value: course?.id
     };
   });
 
   const onSubmit = async (data: any) => {
     data.credits = parseInt(data?.credits);
-
-    const coursePreRequisitesOptions = data?.coursePreRequisites?.map(
-      (id: string) => {
-        return {
-          courseId: id,
-        };
-      }
-    );
-
-    data.coursePreRequisites = coursePreRequisitesOptions;
-
+    // console.log("values", data);
+    const coursePreRequisitesOptions = data?.preRequisiteCourses.map((id: string) => {
+      return {
+        courseId: id
+      };
+    });
+    data.preRequisiteCourses = coursePreRequisitesOptions;
     message.loading("Creating.....");
     try {
       const res = await addCourse(data).unwrap();
@@ -43,6 +38,7 @@ const CreateCoursePage = () => {
       console.error(err.message);
       message.error(err.message);
     }
+    console.log("Daaaata", data);
   };
   const base = "admin";
   return (
@@ -66,13 +62,9 @@ const CreateCoursePage = () => {
             <div style={{ margin: "10px 0px" }}>
               <FormInput name="credits" label="Course Credits" />
             </div>
-            {/* <div style={{ margin: "10px 0px" }}>
-              <FormMultiSelectField
-                options={coursesOptions as SelectOptions[]}
-                name="coursePreRequisites"
-                label="Pre Requisite Courses"
-              />
-            </div> */}
+            <div style={{ margin: "10px 0px" }}>
+              <FormMultiSelectField options={coursesOptions as SelectOptions[]} name="preRequisiteCourses" label="Pre Requisite Courses" />
+            </div>
           </Col>
         </Row>
         <Button type="primary" htmlType="submit">
