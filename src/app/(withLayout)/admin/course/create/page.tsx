@@ -1,5 +1,4 @@
 "use client";
-
 import { useAddCourseMutation, useCoursesQuery } from "@/app/redux/api/courseApi";
 import FormInput from "@/components/Forms/FormInput";
 import FormMultiSelectField from "@/components/Forms/FormMultiSelectField";
