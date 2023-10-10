@@ -10,42 +10,46 @@ import Link from "next/link";
 import { useState } from "react";
 import ActionBar from "@/components/ui/ActionBar";
 import dayjs from "dayjs";
-import { useCoursesQuery, useDeleteCourseMutation } from "@/app/redux/api/courseApi";
+import { useDeleteSemesterRegistrationsMutation, useSemesterRegistrationsQuery } from "@/app/redux/api/semesterRegistrationApi";
 import { useDebounced } from "@/app/redux/hooks";
 import UmBreadCrumb from "@/components/ui/UmBreadCrumb";
-;
-const CoursePage = () => {
+
+
+const SemesterRegistrationPage = () => {
     const query: Record<string, any> = {};
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(10);
     const [sortBy, setSortBy] = useState<string>("");
     const [sortOrder, setSortOrder] = useState<string>("");
     const [searchTerm, setSearchTerm] = useState<string>("");
-    const [deleteCourse] = useDeleteCourseMutation();
+    const [deleteSemesterRegistrations] =
+        useDeleteSemesterRegistrationsMutation();
     query["limit"] = size;
     query["page"] = page;
     query["sortBy"] = sortBy;
     query["sortOrder"] = sortOrder;
     // query["searchTerm"] = searchTerm;
+
     const debouncedTerm = useDebounced({
         searchQuery: searchTerm,
         delay: 600,
     });
+
     if (!!debouncedTerm) {
         query["searchTerm"] = debouncedTerm;
     }
-    const { data, isLoading } = useCoursesQuery({ ...query });
+    const { data, isLoading } = useSemesterRegistrationsQuery({ ...query });
 
-    const courses = data?.courses;
+    const semesterRegistrations = data?.semesterRegistrations;
     const meta = data?.meta;
 
     const deleteHandler = async (id: string) => {
         message.loading("Deleting.....");
         try {
             //   console.log(data);
-            const res = await deleteCourse(id);
+            const res = await deleteSemesterRegistrations(id);
             if (res) {
-                message.success("Course Deleted successfully");
+                message.success("Semester Registration Deleted successfully");
             }
         } catch (err: any) {
             //   console.error(err.message);
@@ -55,19 +59,33 @@ const CoursePage = () => {
 
     const columns = [
         {
-            title: "Title",
-            dataIndex: "title",
+            title: "Start Date",
+            dataIndex: "startDate",
+            render: function (data: any) {
+                return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+            },
             sorter: true,
         },
         {
-            title: "Code",
-            dataIndex: "code",
+            title: "End Date",
+            dataIndex: "endDate",
+            render: function (data: any) {
+                return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+            },
             sorter: true,
         },
         {
-            title: "Credits",
-            dataIndex: "credits",
+            title: "Status",
+            dataIndex: "status",
             sorter: true,
+        },
+        {
+            title: "Academic semester",
+            dataIndex: "academicSemester",
+            sorter: true,
+            render: function (data: any) {
+                return <>{data?.title}</>;
+            },
         },
         {
             title: "CreatedAt",
@@ -82,7 +100,7 @@ const CoursePage = () => {
             render: function (data: any) {
                 return (
                     <>
-                        <Link href={`/admin/course/edit/${data?.id}`}>
+                        <Link href={`/admin/semester-registration/edit/${data?.id}`}>
                             <Button
                                 style={{
                                     margin: "0px 5px",
@@ -135,7 +153,7 @@ const CoursePage = () => {
                 ]}
             />
 
-            <ActionBar title="Course List">
+            <ActionBar title="Semester Registration List">
                 <Input
                     type="text"
                     size="large"
@@ -148,7 +166,7 @@ const CoursePage = () => {
                     }}
                 />
                 <div>
-                    <Link href="/admin/course/create">
+                    <Link href="/admin/semester-registration/create">
                         <Button type="primary">Create</Button>
                     </Link>
                     {(!!sortBy || !!sortOrder || !!searchTerm) && (
@@ -166,7 +184,7 @@ const CoursePage = () => {
             <UMTable
                 loading={isLoading}
                 columns={columns}
-                dataSource={courses}
+                dataSource={semesterRegistrations}
                 pageSize={size}
                 totalPage={meta?.total}
                 showSizeChanger={true}
@@ -177,4 +195,5 @@ const CoursePage = () => {
         </div>
     );
 };
-export default CoursePage;
+
+export default SemesterRegistrationPage;

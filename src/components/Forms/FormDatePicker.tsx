@@ -1,40 +1,45 @@
-import { DatePicker, DatePickerProps, Space } from "antd";
+import { DatePicker, DatePickerProps, Input } from "antd";
 import { Controller, useFormContext } from "react-hook-form";
-import dayjs, { Dayjs } from 'dayjs';
-type UMDatePickerProps = {
-    onChange?: (valOne: Dayjs | null, valTwo: string) => void,
+import dayjs, { Dayjs } from "dayjs";
+
+type UMDatePikerProps = {
+    onChange?: (valOne: Dayjs | null, valTwo: string) => void;
     name: string;
     label?: string;
     value?: Dayjs;
     size?: "large" | "small";
 };
+
 const FormDatePicker = ({
     name,
     label,
-    value,
     onChange,
-    size
-}: UMDatePickerProps) => {
+    size = "large",
+}: UMDatePikerProps) => {
     const { control, setValue } = useFormContext();
+
     const handleOnChange: DatePickerProps["onChange"] = (date, dateString) => {
         onChange ? onChange(date, dateString) : null;
-        setValue(name, dateString);
+        setValue(name, date);
     };
+
     return (
-        <div className={`flex flex-col  w-full`}>
+        <div>
             {label ? label : null}
             <br />
             <Controller
                 name={name}
                 control={control}
                 render={({ field }) => (
-                    <Space direction="vertical">
-                        <DatePicker name={name} defaultValue={dayjs(field.value) || ""} size={size} onChange={handleOnChange} />
-                    </Space>
+                    <DatePicker
+                        defaultValue={dayjs(field.value) || Date.now()}
+                        size={size}
+                        onChange={handleOnChange}
+                        style={{ width: "100%" }}
+                    />
                 )}
             />
         </div>
     );
 };
-
 export default FormDatePicker;
