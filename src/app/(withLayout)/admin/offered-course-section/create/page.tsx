@@ -7,6 +7,8 @@ import FormSelectField, {
     SelectOptions,
 } from "@/components/Forms/FormSelectField";
 import Form from "@/components/Forms/Forms";
+import SemesterRegistrationField from "@/components/Forms/SemesterRegistrationField";
+import FormDynamicFields from "@/components/ui/FormDynamicFields";
 import UmBreadCrumb from "@/components/ui/UmBreadCrumb";
 import { Button, Col, Row, message } from "antd";
 import { useState } from "react";
@@ -69,11 +71,12 @@ const CreateOfferedCourseSectionPage = () => {
                 <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
                     <Col span={8} style={{ margin: "10px 0" }}>
                         <div style={{ margin: "10px 0px" }}>
-                            {/* <SemesterRegistrationField
+                            <SemesterRegistrationField
                                 name="semesterRegistration"
                                 label="Semester Registration"
                                 onChange={(el) => setSemesterRegistrationId(el)}
-                            /> */}
+                            // onChange={(el) => console.log(el)}
+                            />
                         </div>
                         <div style={{ margin: "10px 0px" }}>
                             <ACDepartmentField
@@ -100,7 +103,7 @@ const CreateOfferedCourseSectionPage = () => {
                         </Button>
                     </Col>
                     <Col span={16} style={{ margin: "10px 0" }}>
-                        {/* <FormDynamicFields /> */}
+                        <FormDynamicFields />
                     </Col>
                 </Row>
             </Form>

@@ -13,8 +13,6 @@ import dayjs from "dayjs";
 import { useDeleteSemesterRegistrationsMutation, useSemesterRegistrationsQuery } from "@/app/redux/api/semesterRegistrationApi";
 import { useDebounced } from "@/app/redux/hooks";
 import UmBreadCrumb from "@/components/ui/UmBreadCrumb";
-
-
 const SemesterRegistrationPage = () => {
     const query: Record<string, any> = {};
     const [page, setPage] = useState<number>(1);
